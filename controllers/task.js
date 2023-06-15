@@ -14,12 +14,13 @@ module.exports.createTask = async (req, res, next) => {
   try {
     const { task } = req.body;
 
-    const newTask = new Task(task);
+    const newTask = new Task({ task });
 
     await newTask.save();
 
     res.send(newTask);
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };
@@ -27,6 +28,8 @@ module.exports.createTask = async (req, res, next) => {
 module.exports.updateTask = async (req, res, next) => {
   try {
     const { id } = req.params;
+
+    const { completed } = req.body;
 
     const updatedTask = await Task.findByIdAndUpdate(id, { completed });
 
@@ -36,6 +39,7 @@ module.exports.updateTask = async (req, res, next) => {
       res.send(updatedTask);
     }
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };

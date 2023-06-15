@@ -1,31 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Todo from "./Todo";
+import axios from "axios";
 
 export default function Todos() {
-  const [tasks, settasks] = useState([
-    {
-      _id: 1,
-      task: "task1",
-      completed: false,
-    },
-    {
-      _id: 2,
-      task: "task2",
-      completed: false,
-    },
-    {
-      _id: 3,
-      task: "task3",
-      completed: false,
-    },
-  ]);
+  const [tasks, settasks] = useState([]);
 
   const [taskText, settaskText] = useState("");
 
-  const handleUpdateTask = (taskId, completed) => {
-    settasks(
-      tasks.map((task) => (task._id == taskId ? { ...task, completed } : task))
-    );
+  const getTasks = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/api/tasks`
+      );
+      settasks(res.data);
+    } catch (err) {}
+  };
+
+  const handleUpdateTask = async (taskId, completed) => {
+    try {
+      await axios.put(`${process.env.REACT_APP_BASE_URL}/api/tasks/${taskId}`, {
+        completed,
+      });
+      settasks(
+        tasks.map((task) =>
+          task._id == taskId ? { ...task, completed } : task
+        )
+      );
+
+      settaskText("");
+    } catch (err) {}
   };
 
   const handleKeyPress = (event) => {
@@ -34,22 +37,33 @@ export default function Todos() {
     }
   };
 
-  const addTask = () => {
+  const addTask = async () => {
     if (taskText.trim() === "") return;
 
-    settasks([
-      ...tasks,
-      {
-        task: taskText,
-        completed: false,
-      },
-    ]);
-    settaskText("");
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/tasks`,
+        {
+          task: taskText,
+        }
+      );
+      settasks([...tasks, res.data]);
+      settaskText("");
+    } catch (err) {}
   };
 
-  const handleDeleteTask = (taskId) => {
-    settasks(tasks.filter((task) => task._id != taskId));
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}/api/tasks/${taskId}`
+      );
+      settasks(tasks.filter((task) => task._id != taskId));
+    } catch (err) {}
   };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
 
   return (
     <div>
@@ -67,6 +81,7 @@ export default function Todos() {
       <div>
         {tasks.map((task) => (
           <Todo
+            key={task._id}
             todo={task}
             handleUpdateTask={handleUpdateTask}
             handleDeleteTask={handleDeleteTask}

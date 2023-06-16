@@ -20,7 +20,6 @@ module.exports.createTask = async (req, res, next) => {
 
     res.send(newTask);
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };
@@ -32,9 +31,8 @@ module.exports.updateTask = async (req, res, next) => {
     const { completed } = req.body;
 
     const updatedTask = await Task.findByIdAndUpdate(id, { completed });
-
     if (!updatedTask) {
-      res.status(404).send("Task not found");
+      res.status(200).send("Task not found");
     } else {
       res.send(updatedTask);
     }

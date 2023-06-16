@@ -1,8 +1,40 @@
+.btn-primary {
+  background-color: rgb(161, 62, 62) !important;
+}
 .header-img {
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
 }
 .task-check {
   border-radius: 50% !important;
+  box-shadow: none !important;
+}
+.task-check.checked {
+  background-color: rgb(161, 62, 62) !important;
+  border: rgb(161, 62, 62);
+}
+.main-wrapper {
+  min-height: 100vh;
+  background-image: url(./assets/images/main-back.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.main-content {
+  width: 450px;
+  margin: auto;
+  max-width: 90vw;
+}
+.todos-wrapper {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.task-input {
+  background-color: rgba(255, 255, 255, 0.8) !important ;
+}
+
+.dropdown-menu {
+  --bs-dropdown-padding-y: 0 !important;
+  --bs-dropdown-min-width: 0 !important;
 }

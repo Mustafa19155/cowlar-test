@@ -10,9 +10,7 @@ function App() {
         <div className="main-content">
           <div className="mb-5 text-center">
             <img
-              src={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUwMmwZB0f_rC3YtLf9bE7RAK28dJLIqC3Ww&usqp=CAU"
-              }
+              src={require("./assets/images/main-ima  ge.webp")}
               className="header-img"
             />
           </div>

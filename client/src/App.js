@@ -10,7 +10,7 @@ function App() {
         <div className="main-content">
           <div className="mb-5 text-center">
             <img
-              src={require("./assets/images/main-ima  ge.webp")}
+              src={require("./assets/images/main-image.webp")}
               className="header-img"
             />
           </div>

@@ -15,7 +15,6 @@ export default function Todos() {
   const getTasks = async () => {
     getTasksApi()
       .then((res) => {
-        console.log(res);
         settasks(res);
       })
       .catch((err) => {});

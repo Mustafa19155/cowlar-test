@@ -8,12 +8,14 @@ export async function getTasks() {
   } catch (err) {}
 }
 export async function createTask({ taskText }) {
-  const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/tasks`, {
-    task: taskText,
-  });
-  return res.data;
-
   try {
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/tasks`,
+      {
+        task: taskText,
+      }
+    );
+    return res.data;
   } catch (err) {}
 }
 export async function updateTask({ taskId, completed }) {

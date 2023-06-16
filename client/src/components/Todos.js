@@ -80,7 +80,7 @@ export default function Todos() {
         </button>
       </div>
       <div className="todos-wrapper rounded">
-        {tasks.map((task) => (
+        {tasks?.map((task) => (
           <Todo
             key={task._id}
             todo={task}

@@ -5,7 +5,9 @@ export async function getTasks() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/tasks`);
 
     return res.data;
-  } catch (err) {}
+  } catch (err) {
+    throw err;
+  }
 }
 export async function createTask({ taskText }) {
   try {
@@ -16,7 +18,9 @@ export async function createTask({ taskText }) {
       }
     );
     return res.data;
-  } catch (err) {}
+  } catch (err) {
+    throw err;
+  }
 }
 export async function updateTask({ taskId, completed }) {
   try {
@@ -28,10 +32,14 @@ export async function updateTask({ taskId, completed }) {
     );
 
     return res.data;
-  } catch (err) {}
+  } catch (err) {
+    throw err;
+  }
 }
 export async function deleteTask({ taskId }) {
   try {
     await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/tasks/${taskId}`);
-  } catch (err) {}
+  } catch (err) {
+    throw err;
+  }
 }

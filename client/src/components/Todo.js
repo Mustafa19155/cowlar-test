@@ -23,8 +23,7 @@ export default function Todo({ todo, handleUpdateTask, handleDeleteTask }) {
               {"  "}added: <Moment fromNow>{todo.creationTime}</Moment>
             </sub>
           </p>
-        </div>
-        <a>asd</a>
+        </div>        
         <div className="dropdown" data-testid={`dropdown ${todo._id}`}>
           <a
             className="text-gray-400 text-decoration-none"

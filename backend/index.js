@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+const config = require("./config");
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -43,7 +44,7 @@ app.use(function (err, req, res, next) {
   res.send(err);
 });
 
-const db = process.env.MONGO_CONNECTION;
+const db = config.MONGO_CONNECTION;
 mongoose.connect(db, (err) => {
   if (err) console.log(err);
 });
@@ -51,7 +52,7 @@ mongoose.connect(db, (err) => {
 var debug = require("debug")("cowlar-test:server");
 var http = require("http");
 
-var port = normalizePort(process.env.PORT || "3001");
+var port = normalizePort(config.PORT || "3001");
 app.set("port", port);
 
 var server = http.createServer(app);

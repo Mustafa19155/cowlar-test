@@ -38,3 +38,8 @@
   --bs-dropdown-padding-y: 0 !important;
   --bs-dropdown-min-width: 0 !important;
 }
+
+.modal-content {
+  background-color: transparent !important;
+  border: none !important;
+}

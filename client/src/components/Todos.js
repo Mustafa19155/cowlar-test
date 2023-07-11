@@ -6,30 +6,42 @@ import {
   deleteTask,
   updateTask,
 } from "../api/tasks";
+import Loader from "./Loader";
+import Notification from "./Notification";
 
 export default function Todos() {
+  const [loading, setloading] = useState(false);
+  const [message, setmessage] = useState(null);
   const [tasks, settasks] = useState([]);
 
   const [taskText, settaskText] = useState("");
 
   const getTasks = async () => {
+    setloading(true);
     getTasksApi()
       .then((res) => {
+        setloading(false);
         settasks(res);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setloading(false);
+      });
   };
 
   const handleUpdateTask = async (taskId, completed) => {
+    setloading(true);
     updateTask({ taskId, completed })
       .then((res) => {
+        setloading(false);
         settasks(
           tasks.map((task) =>
             task._id == taskId ? { ...task, completed } : task
           )
         );
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setloading(false);
+      });
 
     settaskText("");
   };
@@ -42,22 +54,33 @@ export default function Todos() {
 
   const addTask = async () => {
     if (taskText.trim() === "") return;
-
+    setloading(true);
     createTask({ taskText })
       .then((res) => {
+        setmessage({ message: "Todo Added Successfully", success: true });
+        setloading(false);
         settasks([...tasks, res]);
 
         settaskText("");
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setmessage({ message: "Todo Not Added", success: false });
+        setloading(false);
+      });
   };
 
   const handleDeleteTask = async (taskId) => {
+    setloading(true);
     deleteTask({ taskId })
       .then((res) => {
+        setmessage({ message: "Todo Deleted Successfully", success: true });
+        setloading(false);
         settasks(tasks.filter((task) => task._id != taskId));
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setmessage({ message: "Todo Deletion Failed", success: false });
+        setloading(false);
+      });
   };
 
   useEffect(() => {
@@ -66,6 +89,10 @@ export default function Todos() {
 
   return (
     <div>
+      <div className="text-center d-flex justify-content-center my-3">
+        <Notification message={message} setmessage={setmessage} />
+      </div>
+      <Loader isOpen={loading} />
       <div className="d-flex gap-4 mb-3">
         <input
           type="text"

@@ -1,10 +1,10 @@
-const Task = require("../models/task");
+const taskService = require("../services/taskService");
 
 module.exports.getAllTasks = async (req, res, next) => {
   try {
-    const tasks = await Task.find({});
+    const tasks = await taskService.getAllTasks();
 
-    res.send(tasks);
+    return res.send(tasks);
   } catch (err) {
     next(err);
   }
@@ -14,11 +14,9 @@ module.exports.createTask = async (req, res, next) => {
   try {
     const { task } = req.body;
 
-    const newTask = new Task({ task });
+    const taskCreated = await taskService.createTask({ task });
 
-    await newTask.save();
-
-    res.send(newTask);
+    return res.send(taskCreated);
   } catch (err) {
     next(err);
   }
@@ -30,14 +28,14 @@ module.exports.updateTask = async (req, res, next) => {
 
     const { completed } = req.body;
 
-    const updatedTask = await Task.findByIdAndUpdate(id, { completed });
+    const updatedTask = await taskService.updateTask({ id, completed });
+
     if (!updatedTask) {
       res.status(404).send("Task not found");
     } else {
       res.send(updatedTask);
     }
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };
@@ -46,7 +44,7 @@ module.exports.deleteTask = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const deletedTask = await Task.findByIdAndDelete(id);
+    const deletedTask = await taskService.deleteTask({ id });
     if (!deletedTask) {
       res.status(404).send("Task not found");
     } else {

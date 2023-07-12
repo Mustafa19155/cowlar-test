@@ -46,18 +46,8 @@ export default function Todo({ todo, handleUpdateTask, handleDeleteTask }) {
               Delete Task
             </a>
           </div>
-
-          {/* <div className="dropdown-menu">
-            <a
-              className="dropdown-item m-0 text-center py-2"
-              onClick={() => handleDeleteTask(todo._id)}
-            >
-              Delete Task
-            </a>
-          </div> */}
         </div>
       </div>
-      {/* Task creation time */}
       <div className="px-3 pb-3 pt-2">
         <small>
           <span className="fw-bold">Created: </span>

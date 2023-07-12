@@ -15,10 +15,15 @@ export default function Todo({ todo, handleUpdateTask, handleDeleteTask }) {
               todo.completed ? "checked" : "bg-transparent border-dark"
             }`}
             onChange={() => handleUpdateTask(todo._id, !todo.completed)}
+            data-testid={todo._id}
           />
           <p className="m-0 h5 fw-normal">{todo.task}</p>
         </div>
-        <div className="dropdown" role="button">
+        <div
+          className="dropdown"
+          role="button"
+          data-testid={`dropdown ${todo._id}`}
+        >
           <a
             className="text-gray-400 text-decoration-none"
             data-bs-toggle="dropdown"

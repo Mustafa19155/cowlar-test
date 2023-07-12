@@ -50,7 +50,7 @@ describe("Todos", () => {
     });
     render(<Todos />);
     const input = screen.getByPlaceholderText("add task");
-    const addButton = screen.getByRole("button", { name: "Add" });
+    const addButton = screen.getByRole("button", { name: "Add Task" });
     fireEvent.change(input, { target: { value: "New Task" } });
     fireEvent.click(addButton);
     expect(createTask).toHaveBeenCalledWith({ taskText: "New Task" });

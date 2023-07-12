@@ -1,28 +1,29 @@
 version: "3"
+
 services:
-  frontend:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+  client:
+    build: ./client
     ports:
       - "3000:3000"
-    volumes:
-      - "./client:/app"
+    environment:
+      - REACT_APP_BASE_URL = http://localhost:3001
     depends_on:
       - backend
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    build: ./backend
     ports:
       - "3001:3001"
-    volumes:
-      - "./server:/app"
+    environment:
+      - NODE_ENV=development
+      - MONGO_CONNECTION=mongodb://mongodb/todo-app
+      - PORT=3001
     depends_on:
-      - database
-  database:
+      - mongodb
+  mongodb:
     image: mongo
-    ports:
-      - "27017:27017"
     volumes:
-      - "./data:/data/db"
+      - todo-app:/data/db
+    ports:
+      - "27018:27017"
+volumes:
+  todo-app:

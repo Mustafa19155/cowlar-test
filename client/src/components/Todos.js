@@ -97,25 +97,35 @@ export default function Todos() {
         <input
           type="text"
           value={taskText}
-          className="form-control task-input py-2"
+          className="form-control task-input py-2 form-control-lg"
           placeholder="add task"
           onChange={(e) => settaskText(e.target.value)}
           onKeyDown={handleKeyPress}
         />
-        <button className="btn btn-primary px-3" onClick={addTask}>
-          Add
+        <button
+          className="btn btn-lg btn-danger px-3 text-nowrap"
+          onClick={addTask}
+        >
+          Add Task
         </button>
       </div>
-      <div className="todos-wrapper rounded">
-        {tasks?.map((task) => (
-          <Todo
-            key={task._id}
-            todo={task}
-            handleUpdateTask={handleUpdateTask}
-            handleDeleteTask={handleDeleteTask}
-          />
-        ))}
-      </div>
+
+      {tasks?.length > 0 ? (
+        <div className="todos-wrapper rounded">
+          {tasks.map((task) => (
+            <Todo
+              key={task._id}
+              todo={task}
+              handleUpdateTask={handleUpdateTask}
+              handleDeleteTask={handleDeleteTask}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="">
+          <h5 className="text-white text-center mt-5">No Todos Added</h5>
+        </div>
+      )}
     </div>
   );
 }

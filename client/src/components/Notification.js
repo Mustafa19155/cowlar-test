@@ -13,18 +13,17 @@ export default function Notification({ message, setmessage }) {
 
   return (
     <Toast
-      className={`bg-${message?.success ? "success" : "danger"}`}
+      className={`bg-${message?.success ? "secondary" : "danger"}`}
       isOpen={message ? true : false}
       style={{
         width: "280px",
         height: "60px",
       }}
     >
-      <ToastBody>
-        <h6 style={{ color: "white", display: "inline", marginRight: "20px" }}>
-          {message?.message}
-        </h6>
+      <ToastBody className="d-flex justify-content-between align-items-center h-100">
+        <h6 className="text-white p-0 m-0">{message?.message}</h6>
         <Button
+          className="p-0 m-0 px-2 rounded bg-light text-dark fw-bold"
           onClick={() => {
             setmessage(null);
           }}

@@ -15,16 +15,10 @@ export default function Todo({ todo, handleUpdateTask, handleDeleteTask }) {
               todo.completed ? "checked" : "bg-transparent border-dark"
             }`}
             onChange={() => handleUpdateTask(todo._id, !todo.completed)}
-            data-testid={todo._id}
           />
-          <p className="m-0">
-            {todo.task}
-            <sub>
-              {"  "}added: <Moment fromNow>{todo.creationTime}</Moment>
-            </sub>
-          </p>
-        </div>        
-        <div className="dropdown" data-testid={`dropdown ${todo._id}`}>
+          <p className="m-0 h5 fw-normal">{todo.task}</p>
+        </div>
+        <div className="dropdown" role="button">
           <a
             className="text-gray-400 text-decoration-none"
             data-bs-toggle="dropdown"
@@ -33,16 +27,46 @@ export default function Todo({ todo, handleUpdateTask, handleDeleteTask }) {
           </a>
           <div className="dropdown-menu">
             <a
-              role="button"
-              className="dropdown-item m-0 btn text-center bg-danger text-white rounded py-2"
+              className="dropdown-item px-3 pb-3 disabled text-center"
+              style={{
+                fontStyle: "italic",
+                borderBottom: "1px solid #F1F4F8",
+              }}
+            >
+              Actions
+            </a>
+            <a
+              className="dropdown-item px-3 py-3 pointer bg-white text-dark"
+              style={{
+                fontStyle: "italic",
+                cursor: "pointer",
+              }}
               onClick={() => handleDeleteTask(todo._id)}
             >
               Delete Task
             </a>
           </div>
+
+          {/* <div className="dropdown-menu">
+            <a
+              className="dropdown-item m-0 text-center py-2"
+              onClick={() => handleDeleteTask(todo._id)}
+            >
+              Delete Task
+            </a>
+          </div> */}
         </div>
       </div>
-      <hr />
+      {/* Task creation time */}
+      <div className="px-3 pb-3 pt-2">
+        <small>
+          <span className="fw-bold">Created: </span>
+          <span>
+            <Moment fromNow>{todo.creationTime}</Moment>
+          </span>
+        </small>
+      </div>
+      <hr className="m-0 p-0" />
     </div>
   );
 }

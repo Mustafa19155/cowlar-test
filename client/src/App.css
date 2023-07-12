@@ -42,7 +42,7 @@
 }
 
 .dropdown-menu {
-  --bs-dropdown-padding-y: 0 !important;
+  /* --bs-dropdown-padding-y: 0 !important; */
   --bs-dropdown-min-width: 0 !important;
 }
 

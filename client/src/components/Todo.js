@@ -25,7 +25,7 @@ export default function Todo({ todo, handleUpdateTask, handleDeleteTask }) {
           >
             <FiMoreVertical style={{ color: "black" }} />
           </a>
-          <div className="dropdown-menu">
+          <div className="dropdown-menu rounded">
             <a
               className="dropdown-item px-3 pb-3 disabled text-center"
               style={{
